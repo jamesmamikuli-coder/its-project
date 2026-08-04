@@ -1,0 +1,34 @@
+# ============================================================
+#  .gitignore  —  Files Git should NOT track
+#  Place this in the root ITS_Project folder
+# ============================================================
+
+# Python virtual environment (hundreds of MB — never commit this)
+venv/
+env/
+.venv/
+
+# Secrets — NEVER commit passwords or keys
+.env
+
+# Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Database files
+*.db
+*.sqlite3
+
+# React build output
+node_modules/
+frontend/node_modules/
+frontend/build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/settings.json
+.idea/

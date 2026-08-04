@@ -1,0 +1,49 @@
+# ============================================================
+#  requirements.txt
+#  ALL PYTHON PACKAGES NEEDED FOR THIS PROJECT
+#
+#  Install everything at once with:
+#     pip install -r requirements.txt
+#
+#  ── STAGE 1 & 2 PACKAGES ────────────────────────────────────
+# ============================================================
+
+# Web framework — the core of our backend
+flask==3.0.3
+
+# Allows our React frontend (port 3000) to call the Flask API (port 5000)
+flask-cors==4.0.1
+
+# JWT login token management (creates and verifies login tokens)
+flask-jwt-extended==4.6.0
+
+# Connects Flask to our PostgreSQL database
+flask-sqlalchemy==3.1.1
+
+# The database ORM — lets us write Python instead of raw SQL
+sqlalchemy==2.0.31
+
+# PostgreSQL driver — lets Python communicate with PostgreSQL
+psycopg2-binary==2.9.9
+
+# Password hashing utilities (comes bundled with Flask)
+werkzeug==3.0.3
+
+# Reads our .env file (secret settings like DB password)
+python-dotenv==1.0.1
+
+# Used by test_auth.py to send HTTP requests to the server
+requests==2.32.3
+
+# ── STAGE 3 PACKAGES (NLP / Machine Learning) ───────────────
+
+# TF-IDF vectorizer and cosine similarity
+# This is the core of our Q&A matching engine
+scikit-learn==1.5.1
+
+# Numerical computing — required by scikit-learn
+numpy==1.26.4
+
+# Natural Language Toolkit — text processing utilities
+# Used for tokenisation and stopword lists
+nltk==3.8.1
