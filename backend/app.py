@@ -7,6 +7,7 @@ from chatbot.chatbot_service import get_chatbot_response
 from chatbot.memory import get_last_conversation
 import psycopg2
 import bcrypt
+import os
 # ==================================================
 # APP SETUP
 # ==================================================
@@ -16,14 +17,20 @@ CORS(app)
 # ==================================================
 # DATABASE CONNECTION
 # ==================================================
-def get_db_connection():
-    return psycopg2.connect(
-        host="localhost",
-        database="its_db",
-        user="postgres",
-        password="admin123"
-    )
+import os
+import psycopg2
 
+def get_db_connection():
+    ssl_mode = "require" if os.getenv("DB_HOST") else "disable"
+
+    return psycopg2.connect(
+        host=os.getenv("DB_HOST", "localhost"),
+        database=os.getenv("DB_NAME", "its_db"),
+        user=os.getenv("DB_USER", "postgres"),
+        password=os.getenv("DB_PASSWORD", "admin123"),
+        port=os.getenv("DB_PORT", "5432"),
+        sslmode=ssl_mode
+    )
 
 # ==================================================
 # INITIALIZE DATABASE TABLES
