@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000";
-
+const BASE_URL = 
+import.meta.env.VITE_API_URL;
+console.log("BASE URL:", BASE_URL);
 const api = axios.create({
   baseURL: BASE_URL,
 });
@@ -89,12 +90,15 @@ export const reportAPI = {
 export const certificateAPI = {
 
   downloadCertificate: (username) =>
-    axios.get(
-      `http://127.0.0.1:5000/api/certificate/${username}`,
+    api.get(
+      `/api/certificate/${username}`,
       {
         responseType: "blob"
       }
     )
 };
-export const getTopicMastery = (username) =>
-    axios.get(`${API_URL}/topic-mastery/${username}`);
+export const topicMasteryAPI = {
+   getTopicMastery: (username) =>
+    api.get(`/api/topic-mastery/${username}`),
+  };
+  export default api;

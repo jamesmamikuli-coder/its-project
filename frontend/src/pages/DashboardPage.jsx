@@ -19,13 +19,13 @@ function DashboardPage() {
   const [dashboard, setDashboard] = useState(null);
   const [loading, setLoading] = useState(true); 
   const chartData =
-  dashboard
-    ? dashboard.recent_scores.map((item, index) => ({
+     (dashboard?.recent_scores || []).map((item, index) => ({
         quiz: `Quiz ${index + 1}`,
-        score: item.score,
-        total: item.total
+        score: Number(item?.score || 0),
+        total: Number(item?.total_questions || item?.total || 10)
       }))
-    : [];
+      ||
+     [];
   const [recommendations, setRecommendations] =useState([]);
 
 const downloadReport = async () => {
@@ -116,10 +116,11 @@ if (!dashboard) {
   return <p>No dashboard data found.</p>;
 }
 
-  
+  const topicMastery =
+  dashboard?.topic_mastery || [];
  const strongestTopic =
-    dashboard.topic_mastery.length > 0
-        ? dashboard.topic_mastery.reduce(
+    topicMastery.length > 0
+        ? topicMastery.reduce(
               (best, topic) =>
                   topic.mastery > best.mastery ? topic : best
           )
@@ -127,8 +128,8 @@ if (!dashboard) {
         
 
      const weakestTopic =
-    dashboard.topic_mastery.length > 0
-        ? dashboard.topic_mastery.reduce(
+    topicMastery.length > 0
+        ? topicMastery.reduce(
               (worst, topic) =>
                   topic.mastery < worst.mastery ? topic : worst
           )
@@ -620,7 +621,7 @@ Keep practicing to improve your average score.
     gap: "15px",
   }}
 >
-  {dashboard.weak_topics.map((item, index) => (
+  {(dashboard.weak_topics || []).map((item, index) => (
     <div
       key={index}
       style={{
@@ -673,7 +674,7 @@ Keep practicing to improve your average score.
 <h2>📚 Topic Mastery</h2>
 
 {
-  dashboard.topic_mastery.map((topic) => (
+  (dashboard.topic_mastery || []).map((topic) => (
 
     <div
       key={topic.topic}
@@ -768,7 +769,7 @@ Keep practicing to improve your average score.
 <h2>🤖 AI Study Recommendations</h2>
 
 {
-  recommendations.length === 0 ? (
+  (recommendations || []).length === 0 ? (
 
     <p
       style={{
@@ -781,7 +782,7 @@ Keep practicing to improve your average score.
 
   ) : (
 
-    recommendations.map((item, index) => (
+    (recommendations || []).map((item, index) => (
 
       <div
     key={index}

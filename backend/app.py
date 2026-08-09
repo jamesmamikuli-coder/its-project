@@ -1152,9 +1152,25 @@ def student_dashboard():
                 for r in recent_scores
             ],
 
-            "weak_topics": formatted_weak_topics,
+            "weak_topics": [
+                {
+                    "topic": w[0],
+                    "wrong_count": w[1]
+                }
+                for w in weak_topics
+            ],
 
-            "topic_mastery": formatted_mastery
+
+
+            "topic_mastery": [
+                {
+                    "topic": m[0],
+                    "correct": m[1],
+                    "questions": m[2],
+                    "mastery": float(m[3])
+                }
+                for m in mastery_rows
+            ],  
         }
 
     except Exception as e:
@@ -2067,7 +2083,7 @@ def generate_certificate(username):
         pdf_path,
         as_attachment=True
     )
-    # ==================================================
+   # ==================================================
 # TOPIC MASTERY API
 # ==================================================
 @app.route("/api/topic-mastery/<username>", methods=["GET"])
@@ -2080,18 +2096,18 @@ def topic_mastery(username):
 
         cur.execute("""
             SELECT
-                topic,
+                LOWER(topic) AS topic,
                 SUM(score) AS total_correct,
                 SUM(total_questions) AS total_questions,
                 ROUND(
                     (SUM(score)::decimal /
-                    NULLIF(SUM(total_questions),0))*100,
+                    NULLIF(SUM(total_questions), 0)) * 100,
                     2
                 ) AS mastery
             FROM quiz_scores
-             WHERE LOWER(username) = LOWER($s)
-             GROUP BY LOWER(topic)
-             ORDER BY LOWER(topic)
+            WHERE LOWER(username) = LOWER(%s)
+            GROUP BY LOWER(topic)
+            ORDER BY LOWER(topic)
         """, (username,))
 
         rows = cur.fetchall()
@@ -2099,14 +2115,11 @@ def topic_mastery(username):
         mastery = []
 
         for row in rows:
-
             mastery.append({
-
                 "topic": row[0],
                 "correct": row[1],
                 "questions": row[2],
                 "mastery": float(row[3])
-
             })
 
         return {
@@ -2115,7 +2128,7 @@ def topic_mastery(username):
 
     except Exception as e:
 
-        print(e)
+        print("Topic mastery error:", e)
 
         return {
             "mastery": []
