@@ -22,7 +22,7 @@ import {
   BookOpen,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import"../styles/layout.css";
+import "../styles/layout.css";
 export default function Layout() {
   const { user, logout, isInstructor } = useAuth();
   const navigate = useNavigate();
@@ -46,8 +46,8 @@ export default function Layout() {
     <h1>ITS</h1>
 
     <p>
-        Intelligent<br />
-        Tutoring System
+        Intelligent Tutoring System for Automated Question Answering and Student Performance Analytics
+        
     </p>
 </div>
 

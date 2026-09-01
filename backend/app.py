@@ -2189,7 +2189,7 @@ def student_analytics(username):
         cur.close()
         conn.close()
 
-        # ==================================================
+# ==================================================
 # ADMIN DASHBOARD API
 # ==================================================
 @app.route("/api/admin/dashboard", methods=["GET"])
@@ -2200,15 +2200,23 @@ def admin_dashboard():
 
     try:
 
+        # Get ALL registered students
+        # LEFT JOIN ensures students with no quiz attempts
+        # are still displayed.
         cur.execute("""
             SELECT
-                username,
-                ROUND(AVG(score),2) AS average_score,
-                MAX(score) AS best_score,
-                COUNT(*) AS quizzes_taken
-            FROM quiz_scores
-            GROUP BY username
-            ORDER BY average_score DESC
+                u.username,
+                u.name,
+                u.email,
+                COALESCE(ROUND(AVG(q.score), 2), 0) AS average_score,
+                COALESCE(MAX(q.score), 0) AS best_score,
+                COUNT(q.id) AS quizzes_taken
+            FROM users u
+            LEFT JOIN quiz_scores q
+                ON u.username = q.username
+            WHERE u.role = 'student'
+            GROUP BY u.id, u.username, u.name, u.email
+            ORDER BY u.id DESC
         """)
 
         students = []
@@ -2217,18 +2225,36 @@ def admin_dashboard():
 
             students.append({
                 "username": row[0],
-                "average_score": float(row[1]),
-                "best_score": float(row[2]),
-                "quizzes_taken": row[3]
+                "name": row[1],
+                "email": row[2],
+                "average_score": float(row[3] or 0),
+                "best_score": float(row[4] or 0),
+                "quizzes_taken": row[5]
             })
 
-        cur.execute("SELECT COUNT(DISTINCT username) FROM quiz_scores")
+        # Total number of registered students
+        cur.execute("""
+            SELECT COUNT(*)
+            FROM users
+            WHERE role = 'student'
+        """)
+
         total_students = cur.fetchone()[0]
 
-        cur.execute("SELECT COUNT(*) FROM quiz_scores")
+        # Total quizzes taken by all students
+        cur.execute("""
+            SELECT COUNT(*)
+            FROM quiz_scores
+        """)
+
         total_quizzes = cur.fetchone()[0]
 
-        cur.execute("SELECT ROUND(AVG(score) * 10) FROM quiz_scores")
+        # Overall average score
+        cur.execute("""
+            SELECT COALESCE(ROUND(AVG(score), 2), 0)
+            FROM quiz_scores
+        """)
+
         average_score = cur.fetchone()[0]
 
         return {
@@ -2240,7 +2266,7 @@ def admin_dashboard():
 
     except Exception as e:
 
-        print(e)
+        print("Admin Dashboard Error:", e)
 
         return {
             "total_students": 0,
@@ -2253,5 +2279,6 @@ def admin_dashboard():
 
         cur.close()
         conn.close()
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

@@ -77,11 +77,15 @@ if (password.length < 6) {
     style={{
         textAlign: "center",
         color: "#2563EB",
-        fontSize: "34px",
-        marginBottom: "10px"
+        fontSize: "24px",
+        lineHeight: "1.3",
+        margin: "0 auto 15px auto",
+        fontWeight: "600",
+        maxWidth: "430px"
+       
     }}
 >
-🎓 Intelligent Tutoring System
+🎓 Intelligent Tutoring System for Automated Question Answering and Student Performance Analytics
 </h1>
 
 <p

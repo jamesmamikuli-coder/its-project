@@ -41,7 +41,7 @@ export function LoginPage() {
       <div className="auth-card">
         <div className="auth-logo">
           <h1>🎓 ITS</h1>
-          <p>Intelligent Tutoring System</p>
+          <p>Intelligent Tutoring System for Automated Question Answering and Student performance</p>
         </div>
 
         <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>Welcome back</h2>
@@ -162,7 +162,7 @@ export function RegisterPage() {
             <label>Full name</label>
             <input name="name" type="text" className="form-control"
               value={form.name} onChange={handleChange}
-              placeholder="Amina Bello" required />
+              placeholder="Mam Bello" required />
           </div>
 
           <div className="form-group">

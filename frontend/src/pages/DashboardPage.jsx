@@ -148,13 +148,15 @@ if (hour >= 12 && hour < 17) {
   return (
 
 <div
+  className="dashboard-page"
   style={{
-    padding: "30px",
+    padding: "clamp(12px, 3vw, 30px)",
     background: "#F4F7FB",
     minHeight: "100vh",
     maxWidth: "1400px",
     width: "100%",
     margin: "0 auto",
+    boxSizing: "border-box",
     
     
   }}
@@ -166,31 +168,39 @@ if (hour >= 12 && hour < 17) {
   }}
 >
 
-  <div
+ <div
+  className="dashboard-hero"
   style={{
-    background: "linear-gradient(135deg,#2563EB,#1D4ED8)",
+    background: "linear-gradient(135deg, #2563EB, #1D4ED8)",
     color: "#fff",
     borderRadius: "20px",
-    padding: "35px 40px",
-    marginBottom: "40px",
+    padding: "clamp(22px, 5vw, 35px) clamp(18px, 5vw, 40px)",
+    marginBottom: "30px",
     boxShadow: "0 12px 30px rgba(37,99,235,.30)",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     flexWrap: "wrap",
     gap: "20px",
-    fontSize: "38px",
+    boxSizing: "border-box",
+    width: "100%",
+    maxWidth: "100%",
   }}
 >
-
-  <div>
-
+  <div
+    style={{
+      flex: "1 1 280px",
+      minWidth: 0,
+    }}
+  >
     <h1
       style={{
         margin: 0,
-        fontSize: "34px",
+        fontSize: "clamp(24px, 6vw, 34px)",
         fontWeight: "700",
-        color: "#FFFFFF"
+        color: "#FFFFFF",
+        lineHeight: "1.2",
+        wordBreak: "break-word",
       }}
     >
       {greeting}, {localStorage.getItem("username")}! 👋
@@ -199,8 +209,10 @@ if (hour >= 12 && hour < 17) {
     <p
       style={{
         marginTop: "12px",
-        fontSize: "18px",
-        opacity: 0.95
+        marginBottom: 0,
+        fontSize: "clamp(15px, 3.5vw, 18px)",
+        opacity: 0.95,
+        lineHeight: "1.5",
       }}
     >
       Ready to continue your learning journey today?
@@ -209,13 +221,13 @@ if (hour >= 12 && hour < 17) {
     <p
       style={{
         marginTop: "10px",
-        fontSize: "15px",
-        opacity: 0.9
+        marginBottom: 0,
+        fontSize: "14px",
+        opacity: 0.9,
       }}
     >
       📅 {new Date().toDateString()}
     </p>
-
   </div>
 
   <button
@@ -223,56 +235,70 @@ if (hour >= 12 && hour < 17) {
     style={{
       background: "#FFFFFF",
       color: "#2563EB",
-      padding: "12px 24px",
+      padding: "12px 20px",
       border: "none",
       borderRadius: "10px",
       cursor: "pointer",
       fontWeight: "bold",
-      fontSize: "15px",
-      transition: "0.3s"
+      fontSize: "14px",
+      width: "auto",
+      maxWidth: "100%",
+      minHeight: "44px",
+      flex: "0 1 auto",
+      boxSizing: "border-box",
+      transition: "0.3s",
     }}
-    onMouseEnter={(e)=>{
-      e.target.style.transform="translateY(-3px)";
-      e.target.style.boxShadow="0 10px 20px rgba(0,0,0,.20)";
+    onMouseEnter={(e) => {
+      e.currentTarget.style.transform = "translateY(-3px)";
+      e.currentTarget.style.boxShadow =
+        "0 10px 20px rgba(0,0,0,.20)";
     }}
-    onMouseLeave={(e)=>{
-      e.target.style.transform="translateY(0)";
-      e.target.style.boxShadow="none";
+    onMouseLeave={(e) => {
+      e.currentTarget.style.transform = "translateY(0)";
+      e.currentTarget.style.boxShadow = "none";
     }}
   >
     📄 Download PDF Report
   </button>
-  </div>
-
+</div>
 </div>
 
 
   {/* Statistics Cards */}
 
   <div
+    className="dashboard-stats"
     style={{
       display: "flex",
       flexWrap: "wrap",
       gap: "20px",
       justifyContent: "center",
-      marginBottom: "30px"
+      marginBottom: "30px",
+      width: "100%",
+      maxWidth: "100%",
+      boxSizing: "border-box",
+
     }}
   >
 
     {/* Total Quizzes */}
 
     <div
-      style={{
-    flex: "1 1 280px",
-    background: "#FFFFFF",
-    borderRadius: "20px",
-    padding: "35px",
-    textAlign: "center",
-    transform: "translateY(-6px)",
-    boxShadow: "0 12px 25px rgba(0,0,0,0.15)",
-    transition: "0.3s",
-    cursor: "pointer",
-    borderTop: "5px solid #2563EB"
+      className="stat-card"
+     style={{
+  flex: "1 1 300px",
+  minWidth: 0,
+  background: "#FFFFFF",
+  borderRadius: "20px",
+  padding: "clamp(22px, 5vw, 35px)",
+  textAlign: "center",
+  boxShadow: "0 12px 25px rgba(0,0,0,0.15)",
+  transition: "0.3s",
+  cursor: "pointer",
+  boxSizing: "border-box",
+  width: "100%",
+  maxWidth: "100%",
+  borderTop: "5px solid #2563EB"
 }}
 
 onMouseEnter={(e)=>{
@@ -312,7 +338,7 @@ Total Quizzes
      <h1
 style={{
     color:"#2563EB",
-    fontSize:"52px",
+    fontSize:"clamp(38px, 10vw, 52px)",
     margin:0,
     fontWeight:"bold"
 }}
@@ -325,19 +351,23 @@ style={{
     {/* Average Score */}
 
     <div
-     style={{
-    flex: "1 1 280px",
-    background: "#FFFFFF",
-    borderRadius: "20px",
-    padding: "35px",
-    textAlign: "center",
-    transform: "translateY(-6px)",
-    boxShadow: "0 12px 25px rgba(0,0,0,0.15)",
-    transition: "0.3s",
-    cursor: "pointer",
-    borderTop: "5px solid #10B981"
+      className="stat-card"
+    style={{
+  flex: "1 1 300px",
+  minWidth: 0,
+  background: "#FFFFFF",
+  borderRadius: "20px",
+  padding: "clamp(22px, 5vw, 35px)",
+  textAlign: "center",
+  boxShadow: "0 12px 25px rgba(0,0,0,0.15)",
+  transition: "0.3s",
+  cursor: "pointer",
+  boxSizing: "border-box",
+  width: "100%",
+  maxWidth: "100%",
+  borderTop: "5px solid #10B981"
 }}
-
+    
 onMouseEnter={(e)=>{
     e.currentTarget.style.transform="translateY(-8px)";
     e.currentTarget.style.boxShadow="0 18px 35px rgba(37,99,235,.25)";
@@ -370,7 +400,7 @@ style={{
       <h1
 style={{
     color:"#10B981",
-    fontSize:"52px",
+    fontSize:"clamp(38px, 10vw, 52px)",
     margin:0,
     fontWeight:"bold"
 }}
@@ -385,6 +415,7 @@ style={{
   {/* Recent Quiz Performance Card */}
 
   <div
+  className="recent-quiz-card"
   style={{
     background: "#fff",
     padding: "25px",
@@ -400,6 +431,7 @@ style={{
     >
 
       <h2
+        className="dashboard-section-title"
         style={{
           color: "#1E3A8A",
           fontSize: "clamp(22px, 3vw, 30px)",
@@ -412,7 +444,7 @@ style={{
       <p
         style={{
           color: "#6B7280",
-           fontSize: "clamp(22px, 3vw, 30px)",
+           fontSize: "16px",
           marginBottom: "20px"
         }}
       >
@@ -433,15 +465,18 @@ Keep practicing to improve your average score.
 
 
 <div
+  className="dashboard-chart"
   style={{
    width: "100%",
-   height: "360px"
+   height: "360px",
+   minWidth: 0,
+
   }}
 >
 
 <ResponsiveContainer
   width="100%"
-  height={380}
+  height="100%"
 >
 
 <BarChart
@@ -488,7 +523,6 @@ Keep practicing to improve your average score.
     dataKey="score"
     fill="#2563EB"
     radius={[10, 10, 0, 0]}
-    radius={[10, 10, 0, 0]}
     isAnimationActive={false}
     animationDuration={1200}
     animationEasing="ease-out"
@@ -514,6 +548,7 @@ Keep practicing to improve your average score.
       <hr />
 
 <div
+  className="dashboard-section"
   style={{
     background: "#fff",
     padding: "20px",
@@ -543,8 +578,10 @@ Keep practicing to improve your average score.
     {/* Strongest Topic */}
     <div
       style={{
-        flex: 1,
-        minWidth: "250px",
+        flex: "1 1 300px",
+        minWidth: 0,
+        width: "100%",
+        boxSizing: "border-box",
         background: "#E8F5E9",
         padding: "20px",
         borderRadius: "12px",
@@ -569,8 +606,10 @@ Keep practicing to improve your average score.
     {/* Weakest Topic */}
     <div
       style={{
-        flex: 1,
-        minWidth: "250px",
+        flex: "1 1 300px",
+        minWidth: 0,
+        width: "100%",
+        boxSizing: "border-box",
         background: "#FFEBEE",
         padding: "20px",
         borderRadius: "12px",
@@ -595,6 +634,7 @@ Keep practicing to improve your average score.
 </div>
       
 <div
+  className="dashboard-section"
   style={{
     background: "#fff",
     padding: "20px",
@@ -628,6 +668,8 @@ Keep practicing to improve your average score.
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        flexWrap: "wrap",
+        gap: "10px",
         background: "#FFF8E1",
         padding: "15px 20px",
         borderLeft: "6px solid #F59E0B",
@@ -638,7 +680,9 @@ Keep practicing to improve your average score.
       <span
         style={{
           fontWeight: "600",
-          fontSize: "18px",
+          fontSize: "clamp(15px, 4vw, 18px)",
+          minWidth: 0,
+          wordBreak: "break-word",
         }}
       >
         📘 {item.topic}
@@ -648,7 +692,8 @@ Keep practicing to improve your average score.
         style={{
           color: "#D32F2F",
           fontWeight: "bold",
-          fontSize: "18px",
+          fontSize: "clamp(15px, 4vw, 18px)",
+          whiteSpace: "nowrap",
         }}
       >
         {item.wrong_count} mistakes
@@ -662,9 +707,10 @@ Keep practicing to improve your average score.
       <hr />
       
 <div
+  className="dashboard-section"
   style={{
     background: "#fff",
-    padding: "20px",
+    padding: "clamp(15px, 4vw, 18px)",
     borderRadius: "12px",
     marginBottom: "25px",
     boxShadow: "0 2px 10px rgba(0,0,0,0.1)"
@@ -703,7 +749,7 @@ Keep practicing to improve your average score.
     <strong
         style={{
             color: "#1F2937",
-            fontSize: "16px"
+            fontSize:"clamp(14px, 4vw, 16px)",
         }}
     >
         {topic.topic}
@@ -757,9 +803,10 @@ Keep practicing to improve your average score.
 
 </div>
 <div
+  className="dashboard-section"
   style={{
     background: "#fff",
-    padding: "20px",
+    padding: "clamp(14px, 4vw, 20px)",
     borderRadius: "12px",
     marginBottom: "25px",
     boxShadow: "0 2px 10px rgba(0,0,0,0.1)"
@@ -792,7 +839,10 @@ Keep practicing to improve your average score.
         padding: "20px",
         marginBottom: "20px",
         borderLeft: "6px solid #2563EB",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.08)"
+        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+        width: "100%",
+        boxSizing: "border-box",
+
     }}
 >
 
@@ -818,7 +868,8 @@ Keep practicing to improve your average score.
     <p
         style={{
             color: "#666",
-            lineHeight: "1.7"
+            lineHeight: "1.7",
+            wordBreak: "break-word",
         }}
     >
         {item.recommendation}

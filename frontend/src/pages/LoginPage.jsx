@@ -107,13 +107,17 @@ setTimeout(() => {
 
      <h1
     style={{
-        textAlign: "center",
+      textAlign: "center",
         color: "#2563EB",
-        marginBottom: "10px",
-        fontSize: "34px"
+        fontSize: "24px",
+        lineHeight: "1.3",
+        margin: "0 auto 15px auto",
+        fontWeight: "600",
+        maxWidth: "430px"
+       
     }}
 >
-🎓 Intelligent Tutoring System
+🎓 Intelligent Tutoring  System for Automated Question Answering and Student Performance Analytics
 </h1>
 
 <p
@@ -246,6 +250,7 @@ fontSize:"15px"
 Don't have an account?
 
 <Link
+to="/register"
 style={{
 color:"#2563EB",
 fontWeight:"bold",
